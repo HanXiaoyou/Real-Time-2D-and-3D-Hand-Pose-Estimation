@@ -34,6 +34,7 @@ class FreiHANDTrainset(torch.utils.data.Dataset):
         self.uv_gts = self.projectPoints(self.pose_gts, self.cam_params)
 
         print('Generating heatmaps..',end='')
+        print('Generating FreiHAND heatmaps..', end='')
         for count, uv_gts in enumerate(self.uv_gts):
             heatmap_gt_list = create_gaussian_heatmap_from_gt(uv_gts)
             self.heatmap_gts_list.append(heatmap_gt_list)
@@ -99,7 +100,7 @@ class FreiHANDTrainset(torch.utils.data.Dataset):
 
         # load if exist
         K_list = self.json_load(k_path)
-        scale_list = self.json_load(scale_path)
+        scale_list = self.json_load(scale_path)  # mean: 0.0285 min: 0.0159 max: 0.0364
         xyz_list = self.json_load(xyz_path)
 
         # should have all the same length
